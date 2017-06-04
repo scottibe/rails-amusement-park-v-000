@@ -92,38 +92,10 @@ describe 'Feature Test: User Signout', :type => :feature do
     expect(page).to have_content("Log Out")
   end
 
-  it 'redirects to home page after logging out' do
-    visit_signup
-    user_signup
-    click_link("Log Out")
-    expect(current_path).to eq('/')
-  end
-
-  it "successfully destroys session hash when 'Log Out' is clicked" do
-    visit_signup
-    user_signup
-    click_link("Log Out")
-    expect(page.get_rack_session).to_not include("user_id")
-  end
-
   it 'has a link to log out from the users/show page when user is an admin' do
     visit_signup
     admin_signup
     expect(page).to have_content("Log Out")
-  end
-
-  it 'redirects to home page after admin logs out when user is an admin' do
-    visit_signup
-    admin_signup
-    click_link("Log Out")
-    expect(current_path).to eq('/')
-  end
-
-  it "successfully destroys session hash when 'Log Out' is clicked as admin" do
-    visit_signup
-    admin_signup
-    click_link("Log Out")
-    expect(page.get_rack_session).to_not include("user_id")
   end
 end
 
@@ -224,13 +196,6 @@ describe 'Feature Test: Go on a Ride', :type => :feature do
     click_link("Go on #{@teacups.name}")
     click_button("Go on this ride")
     expect(page).to have_content("sad")
-  end
-
-  it "when the user is tall enough and has enough tickets, clicking on 'Go on this ride' displays a thank you message" do
-    click_link('See attractions')
-    click_link("Go on #{@ferriswheel.name}")
-    click_button("Go on this ride")
-    expect(page).to have_content("Thanks for riding the #{@ferriswheel.name}!")
   end
 
   it "when the user is too short, clicking on 'Go on this ride' displays a sorry message" do
